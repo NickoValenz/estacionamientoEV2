@@ -18,7 +18,7 @@ def agregarReserva(request):
         form = FormCliente(request.POST)
         if form.is_valid():
             form.save()
-        return index(request)
+            return redirect('/reservas')
     data = {'form': form}
     return render(request, 'appEstacionamiento/agregarReserva.html', data)
 

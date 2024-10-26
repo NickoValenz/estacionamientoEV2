@@ -1,20 +1,36 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/estiloAgregarReserva.css' %}">
+    <title>Agregar Reserva</title>
 </head>
 <body class="container mt-5">
-    <div class="alert alert-info display-1 text-center">LISTADO DE RESERVAS/CLIENTES</div>
+    <div class="alert alert-info display-1 text-center">AGREGAR RESERVA/CLIENTE</div>
 
     <form method="post">
-        {{ form.as_p }}
         {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="mb-3">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                
+                {% if field.errors %}
+                    <div class="text-danger">
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
         <input type="submit" value="AGREGAR RESERVA" class="btn btn-info">
     </form>
 
     <a href="../reservas" class="btn btn-info mt-5">RESERVAS</a>
-    
 </body>
 </html>
