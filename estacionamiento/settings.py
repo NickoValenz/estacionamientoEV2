@@ -81,7 +81,7 @@ pymysql.install_as_MySQLdb()
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ESTACIONAMIENTO',
+        'NAME': 'RESERVAS_MEZCLADO',
         'USER' : 'root',
         'PASSWORD' : ''
     }

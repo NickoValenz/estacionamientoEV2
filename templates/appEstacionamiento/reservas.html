@@ -6,55 +6,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/reservasEstilo.css' %}">
-    <title>Lista Reservas</title>
+    <title>Lista de Reservas</title>
 </head>
 <body class="container mt-5">
     <div class="alert alert-info display-1 text-center">LISTADO DE RESERVAS</div>
-    
-    {% if reservas %}
 
-    <table class="table table-striped table-inverse table-responsive">
-        <thead class="thead-inverse">
+    {% if reservas %}
+    <table class="table table-striped table-hover table-responsive mt-4">
+        <thead class="table-dark">
             <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>RUT</th>
-                <th>Telefono/Whatsapp</th>
-                <th>Email</th>
-                <th>Direccion</th>
+                <th>Cliente</th>
+                <th>Vehiculo</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Término</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             {% for reserva in reservas %}
             <tr>
-                <td>{{ reserva.nombre }}</td>
-                <td>{{ reserva.apellido }}</td>
-                <td>{{ reserva.rut }}</td>
-                <td>{{ reserva.telefono }}</td>
-                <td>{{ reserva.email }}</td>
-                <td>{{ reserva.direccion }}</td>
+                <td>{{ reserva.cliente }}</td>
+                <td>{{ reserva.vehiculo }}</td>
+                <td>{{ reserva.fecha_inicio }}</td>
+                <td>{{ reserva.fecha_termino }}</td>
                 <td>
-                    <a href="/actualizarReserva/{{ reserva.id }}" class="btn btn-success btn-sm">
-                        <i class="bi bi-pencil"></i> Actualizar
-                    </a>
-                    <a href="/eliminarReserva/{{ reserva.id }}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta reserva/cliente?');">
-                        <i class="bi bi-trash"></i> Eliminar
-                    </a>
+                    <a href="{% url 'actualizarReserva' reserva.id %}" class="btn btn-success btn-sm">Actualizar</a>
+                    <a href="{% url 'eliminarReserva' reserva.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Esta seguro de eliminar esta reserva?');">Eliminar</a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-
     {% else %}
-
-    <div class="alert alert-primary" role="alert">
+    <div class="alert alert-primary text-center mt-4" role="alert">
         <strong>No se encuentran reservas en el sistema</strong>
     </div>
-
     {% endif %}
 
-    <a href="../" class="btn btn-danger">VOLVER</a>
-    <a href="../agregarReserva" class="btn btn-info float-end">AGREGAR RESERVAS</a>
+    <a href="{% url 'index' %}" class="btn btn-danger mt-3">VOLVER</a>
+    <a href="{% url 'agregarReserva' %}" class="btn btn-info float-end mt-3">AGREGAR RESERVA</a>
 </body>
 </html>

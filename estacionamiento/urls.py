@@ -19,9 +19,19 @@ from appEstacionamiento import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
-    path('reservas/', views.listadoReservas),
-    path('agregarReserva', views.agregarReserva),
-    path('eliminarReserva/<int:id>', views.eliminarReserva),
-    path('actualizarReserva/<int:id>', views.actualizarReserva)
+    path('', views.index, name='index'),
+    path('clientes/', views.listadoClientes, name='listadoClientes'),
+    path('agregarCliente/', views.agregarCliente, name='agregarCliente'),
+    path('actualizarCliente/<int:id>/', views.actualizarCliente, name='actualizarCliente'),
+    path('eliminarCliente/<int:id>/', views.eliminarCliente, name='eliminarCliente'),
+
+    path('vehiculos/', views.listadoVehiculos, name='listadoVehiculos'),
+    path('agregarVehiculo/', views.agregarVehiculo, name='agregarVehiculo'),
+    path('actualizarVehiculo/<int:id>/', views.actualizarVehiculo, name='actualizarVehiculo'),
+    path('eliminarVehiculo/<int:id>/', views.eliminarVehiculo, name='eliminarVehiculo'),
+
+    path('reservas/', views.listadoReservas, name='listadoReservas'),
+    path('agregarReserva/', views.agregarReserva, name='agregarReserva'),
+    path('actualizarReserva/<int:id>/', views.actualizarReserva, name='actualizarReserva'),
+    path('eliminarReserva/<int:id>/', views.eliminarReserva, name='eliminarReserva'),
 ]
