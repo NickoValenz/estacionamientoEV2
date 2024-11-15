@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator, MaxLengthValidator, MinLengthValidator
 
-# Modelo ClienteEst
+#Modelo ClienteEst
 class ClienteEst(models.Model):
     nombre = models.CharField(
         max_length=50,
@@ -21,15 +21,23 @@ class ClienteEst(models.Model):
             )
         ]
     )
-    rut = models.CharField(max_length=10)
-    telefono = models.CharField(max_length=15)
+    rut = models.CharField(
+        max_length=10,
+        validators=[RegexValidator(regex=r'^\d{7,8}-[\dkK]$', message="Rut sin puntos y guion. ")],
+        help_text=" (ej.'12345678-9')"
+    )
+    telefono = models.CharField(
+        max_length=9,
+        validators=[RegexValidator(regex=r'^\d{9}$', message="El telefono debe contener 9 dígitos.")],
+        help_text=" (ej.'912345678')."
+    )
     email = models.EmailField(max_length=70)
     direccion = models.CharField(
         max_length=150,
         validators=[
             RegexValidator(
                 regex=r'^(?!^\d+$)[a-zA-Z0-9\s]+$',
-                message="La direccion debe incluir el nombre y número de la calle, no solo números."
+                message="La direccion debe incluir el nombre y numero de la calle, no solo números."
             )
         ]
     )
@@ -67,7 +75,7 @@ class Vehiculo(models.Model):
         validators=[
             RegexValidator(
                 regex=r'^[a-zA-Z0-9\s]+$',
-                message="El modelo solo puede contener letras, números y espacios."
+                message="El modelo solo puede contener letras, numeros y espacios."
             ),
             MaxLengthValidator(50, message="El modelo no debe exceder los 50 caracteres.")
         ]
@@ -100,10 +108,20 @@ class Vehiculo(models.Model):
 # 
 #Reserva
 class Reserva(models.Model):
+    ESTADO_CHOICES = [
+        ('activo', 'Activo'),
+        ('no_activo', 'No Activo'),
+    ]
+
     cliente = models.ForeignKey(ClienteEst, on_delete=models.CASCADE)
     vehiculo = models.ForeignKey(Vehiculo, on_delete=models.CASCADE)
     fecha_inicio = models.DateField()
     fecha_termino = models.DateField()
+    estado = models.CharField(
+        max_length=10,
+        choices=ESTADO_CHOICES,
+        default='activo',
+    )
 
     def __str__(self):
-        return f"Reserva de {self.cliente} - Vehículo {self.vehiculo} del {self.fecha_inicio} al {self.fecha_termino}"
+        return f"Reserva de {self.cliente} - Vehículo {self.vehiculo} del {self.fecha_inicio} al {self.fecha_termino} ({self.estado})"

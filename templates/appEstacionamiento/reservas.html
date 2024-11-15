@@ -18,7 +18,8 @@
                 <th>Cliente</th>
                 <th>Vehiculo</th>
                 <th>Fecha de Inicio</th>
-                <th>Fecha de Término</th>
+                <th>Fecha de Termino</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -29,6 +30,13 @@
                 <td>{{ reserva.vehiculo }}</td>
                 <td>{{ reserva.fecha_inicio }}</td>
                 <td>{{ reserva.fecha_termino }}</td>
+                <td>
+                    {% if reserva.estado == 'activo' %}
+                        <span class="badge bg-success">Activo</span>
+                    {% else %}
+                        <span class="badge bg-secondary">No Activo</span>
+                    {% endif %}
+                </td>
                 <td>
                     <a href="{% url 'actualizarReserva' reserva.id %}" class="btn btn-success btn-sm">Actualizar</a>
                     <a href="{% url 'eliminarReserva' reserva.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Esta seguro de eliminar esta reserva?');">Eliminar</a>

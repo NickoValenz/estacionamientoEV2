@@ -16,4 +16,8 @@ class FormVehiculo(forms.ModelForm):
 class FormReserva(forms.ModelForm):
     class Meta:
         model = Reserva
-        fields = ['cliente', 'vehiculo', 'fecha_inicio', 'fecha_termino']
+        fields = ['cliente', 'vehiculo', 'fecha_inicio', 'fecha_termino', 'estado']
+        widgets = {
+            'fecha_inicio': forms.DateInput(attrs={'type': 'date'}),  # Calendario para la fecha de inicio
+            'fecha_termino': forms.DateInput(attrs={'type': 'date'}),  # Calendario para la fecha de término
+        }
